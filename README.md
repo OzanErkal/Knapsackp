@@ -10,7 +10,7 @@ The goal is to select a subset of items to put into the knapsack such that the t
 The task is to Design and implement the following(s)
 
 Phase 1:  Create java class(es) to represent a 0–1 knapsack problem instance given in the format described in the [GitHub repository](https://github.com/JorikJooken/knapsackProblemInstances).
-A dataset of 3240 problem instances is made publicly available by Jooken, J., Leyman, P., and De Causmaecker, P. (2022). 
+A dataset of 3240 problem instances is made publicly available by [Jooken, Leyman, and De Causmaecker (2022)](https://www.sciencedirect.com/science/article/pii/S037722172101016X). 
 Each problem instance is distributed as a text file named *test.in*.
 The first line of the file represents the number of items, *n*. Each of the *n* following lines describe an item and contains 3 integers: 
 * the id of the item, 
