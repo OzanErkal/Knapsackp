@@ -50,4 +50,8 @@ Phase 2: Implement a method that checks for the trivial case of the KP01 problem
 The method should return boolean=true when the bag that we are trying to fill is larger than the sum of the all items.
 In other words; if all items fit in to our bag, then this is a trivial problem instance since the solution is to just pick all items!
 
-P
+Phase 3: Implement (i) a strategy that generates a random solution to the KP01 problem,
+(ii) a [greedy algorithm](https://www.geeksforgeeks.org/greedy-algorithms/) to generate a greedy solution to the KP01 problem.
+
+Random solution is a [randomized algorithm](https://www.slideshare.net/anniyappa/randomized-algorithms-ver-10), which generates different solution each time when it is run.
+Greedy solution (hint: sort descending the items according to unit price ) is deterministic on the other hand. 
