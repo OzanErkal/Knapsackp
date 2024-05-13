@@ -54,4 +54,41 @@ Phase 3: Implement (i) a strategy that generates a random solution to the KP01 p
 (ii) a [greedy algorithm](https://www.geeksforgeeks.org/greedy-algorithms/) to generate a greedy solution to the KP01 problem.
 
 Random solution is a [randomized algorithm](https://www.slideshare.net/anniyappa/randomized-algorithms-ver-10), which generates different solution each time when it is run.
-Greedy solution (hint: sort descending the items according to unit price ) is deterministic on the other hand. 
+Greedy solution (hint: sort descending the items according to unit price [i.e. profit/weight] ) is deterministic on the other hand.
+
+Phase 4: Generate one million random solutions and then print the best (i.e. maximum profit) of them for a given problem instance.
+Of course do not keep all solutions in the memory! Here is a pseudocode
+``` java
+long maxProfit = Long.MIN_VALUE;
+Solution best = null;
+for(int i=0;i<1_000_000_000;i++)
+{
+   Solution randomSolution = generateRandomSolution();
+   if(randomSolution.totalProfit() > maxProfit)
+   {
+        maxProfit = randomSolution.totalProfit();
+        best = randomSolution;
+   }
+}
+best.print();
+```
+Phase 5: Repeat phase 4 using parallelism (e.g. multi-threads).
+Hint: Read [atomic variables](https://www.baeldung.com/java-atomic-variables) and AtomicReference's methods. 
+
+``` java
+    public void oneMillionParallel() {
+        long maxProfit = Long.MIN_VALUE;
+        Solution best = null;
+
+        IntStream.range(0, 1_000_000_000).boxed().parallel().forEach(i -> {
+
+            Solution randomSolution = generateRandomSolution();
+            if (randomSolution.totalProfit() > maxProfit) {
+                maxProfit = randomSolution.totalProfit();
+                best = randomSolution;
+            }
+        });
+
+        best.print();
+    }
+```

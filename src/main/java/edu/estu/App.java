@@ -16,7 +16,11 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Hello World!");
 
-        Path path = Paths.get("test.in.readme");
+        KP01 large = KP01.fromFile(Paths.get("test.in.large"));
+
+        System.out.println(large);
+
+        Path path = Paths.get("test.in.large");
 
         final int n = Integer.parseInt(readFirstLine(path));
 
