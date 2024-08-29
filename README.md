@@ -71,6 +71,52 @@ for(int i=0;i<1_000_000_000;i++)
    }
 }
 best.print();
+
+int max = Integer.MIN_VALULE;
+
+for(int i=0;i<n;i++)
+{
+
+if arr[i] > max
+max = arr[i];
+
+}
+
+
+int max = -1;
+
+for(int i=0;i<n;i++)
+{
+int aRandomNumber = new Random.nextInt();
+if (aRandomNumber > max)
+max = aRandomNumber;
+
+}
+
+sout max
+
+int max = -1;
+
+ IntStream.range(0, 1_000_000_000).boxed().parallel().forEach(i -> {
+ 
+int aRandomNumber = new Random.nextInt();
+syncohrixed(this){
+if (aRandomNumber > max)
+max = aRandomNumber;
+ }
+ }
+
+
+AtomicInteger max = new AtomicInteger(-1);
+
+ IntStream.range(0, 1_000_000_000).boxed().parallel().forEach(i -> {
+ 
+int aRandomNumber = new Random.nextInt();
+
+if (aRandomNumber > max.getPlain())
+max.set(aRandomNumber);
+ }
+
 ```
 Phase 5: Repeat phase 4 using parallelism (e.g. multi-threads).
 Hint: Read [atomic variables](https://www.baeldung.com/java-atomic-variables) and AtomicReference's methods. 

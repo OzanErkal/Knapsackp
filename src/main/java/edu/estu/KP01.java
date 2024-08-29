@@ -70,11 +70,10 @@ public class KP01 {
         return items.stream().mapToLong(Item::weight).sum() <= capacity;
     }
 
-
+/*
     public void oneMillionParallel() {
         AtomicReference<Item> ref = new AtomicReference<>();
 
-        ref.
         long maxProfit = Long.MIN_VALUE;
         Solution best = null;
 
@@ -89,4 +88,6 @@ public class KP01 {
 
         best.print();
     }
+    */
+
 }
