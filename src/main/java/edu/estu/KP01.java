@@ -4,12 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.IntStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The 0–1 knapsack problem is a classical NP-hard optimization problem.
@@ -34,12 +30,10 @@ public class KP01 {
     }
 
     public static KP01 fromFile(Path path) {
-
         try (InputStream input = Files.newInputStream(path);
              Scanner scanner = new Scanner(input)) {
 
             int numberOfItems = scanner.nextInt();
-
             Set<Item> items = new HashSet<>(numberOfItems);
 
             for (int i = 0; i < numberOfItems; i++) {
@@ -47,16 +41,11 @@ public class KP01 {
             }
 
             long capacity = scanner.nextLong();
-
-            KP01 result = new KP01(capacity, Set.copyOf(items));
-            items.clear();
-            return result;
-
+            return new KP01(capacity, items);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public String toString() {
@@ -70,24 +59,39 @@ public class KP01 {
         return items.stream().mapToLong(Item::weight).sum() <= capacity;
     }
 
-/*
-    public void oneMillionParallel() {
-        AtomicReference<Item> ref = new AtomicReference<>();
+    // Greedy Solution: Sort by profit-to-weight ratio, and select items that fit
+    public List<Item> greedySolution() {
+        // Sort items by profit/weight in descending order
+        List<Item> sortedItems = items.stream()
+                .sorted((i1, i2) -> Double.compare(i2.profit() / (double) i2.weight(), i1.profit() / (double) i1.weight()))
+                .collect(Collectors.toList());
 
-        long maxProfit = Long.MIN_VALUE;
-        Solution best = null;
+        List<Item> selectedItems = new ArrayList<>();
+        long currentWeight = 0;
 
-        IntStream.range(0, 1_000_000_000).boxed().parallel().forEach(i -> {
-
-            Solution randomSolution = generateRandomSolution();
-            if (randomSolution.totalProfit() > maxProfit) {
-                maxProfit = randomSolution.totalProfit();
-                best = randomSolution;
+        for (Item item : sortedItems) {
+            if (currentWeight + item.weight() <= capacity) {
+                selectedItems.add(item);
+                currentWeight += item.weight();
             }
-        });
+        }
 
-        best.print();
+        return selectedItems;
     }
-    */
 
+    // Random Solution: Randomly include or exclude items and ensure total weight does not exceed capacity
+    public List<Item> randomSolution() {
+        Random random = new Random();
+        List<Item> selectedItems = new ArrayList<>();
+        long currentWeight = 0;
+
+        for (Item item : items) {
+            if (random.nextBoolean() && currentWeight + item.weight() <= capacity) {
+                selectedItems.add(item);
+                currentWeight += item.weight();
+            }
+        }
+
+        return selectedItems;
+    }
 }
